@@ -55,6 +55,12 @@ public class AccountTest {
         System.out.println("affectedRows = " + affectedRows);
     }
 
+    @Test
+    public void testUpdateNameById() {
+        Integer affectedRows = accountMapper.updateNameById("zhangsanfeng", 1);
+        System.out.println("affectedRows = " + affectedRows);
+    }
+
     @AfterClass
     public static void close() {
         sqlSession.close();

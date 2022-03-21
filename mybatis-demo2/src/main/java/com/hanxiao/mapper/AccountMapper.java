@@ -1,6 +1,7 @@
 package com.hanxiao.mapper;
 
 import com.hanxiao.bean.Account;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @description:
@@ -10,9 +11,11 @@ import com.hanxiao.bean.Account;
 public interface AccountMapper {
     Account selectAccountById(Integer id);
 
-    Integer insertAccount(Account account);
+    Integer insertAccount(@Param("acc") Account account);
 
     Integer deleteAccountById(Integer id);
 
     Integer updateAccountByName(String name);
+
+    Integer updateNameById(@Param("username") String name, @Param("uid") Integer id);
 }

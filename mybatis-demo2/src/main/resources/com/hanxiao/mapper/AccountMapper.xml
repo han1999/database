@@ -5,11 +5,11 @@
 
 <mapper namespace="com.hanxiao.mapper.AccountMapper">
     <select id="selectAccountById" resultType="com.hanxiao.bean.Account">
-        select * from Account where id = #{id};
+        select * from Account where id = #{xxx};
     </select>
 
     <insert id="insertAccount">
-        insert into account values (#{id}, #{name}, #{money});
+        insert into account values (#{acc.id}, #{acc.name}, #{acc.money});
     </insert>
 
     <delete id="deleteAccountById">
@@ -20,5 +20,7 @@
         update account set money=1000 where name=#{name};
     </update>
     
-
+    <update id="updateNameById">
+        update account set name= #{username} where id= #{uid};
+    </update>
 </mapper>
