@@ -1,4 +1,5 @@
 import com.hanxiao.bean.Account;
+import com.hanxiao.bean.Bccount;
 import com.hanxiao.mapper.AccountMapper;
 import com.hanxiao.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -6,6 +7,9 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @description:
@@ -61,6 +65,41 @@ public class AccountTest {
         System.out.println("affectedRows = " + affectedRows);
     }
 
+    @Test
+    public void testSelectAccountListByMap() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("id", 1);
+        hashMap.put("money", 100);
+        List<Account> accounts = accountMapper.selectAccountListByMap(hashMap);
+        System.out.println("accounts = " + accounts);
+    }
+
+    @Test
+    public void testSelectAccountListByMapWithParam() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("id", 1);
+        hashMap.put("money", 1000);
+        List<Account> accounts = accountMapper.selectAccountListByMapWithParam(hashMap);
+        System.out.println("accounts = " + accounts);
+    }
+
+    @Test
+    public void testSelectAccountListByIdOrMoney() {
+        List<Account> accounts = accountMapper.selectAccountListByIdOrMoney(1, "zhangsan", 2000);
+        System.out.println("accounts = " + accounts);
+    }
+
+    @Test
+    public void testSelectAccountListOrderByColumn() {
+        List<Account> accounts = accountMapper.selectAccountListOrderByColumn("id");
+        System.out.println("accounts = " + accounts);
+    }
+
+    @Test
+    public void selectBccountById() {
+        Bccount bccount = accountMapper.selectBccountById(1);
+        System.out.println("bccount = " + bccount);
+    }
     @AfterClass
     public static void close() {
         sqlSession.close();

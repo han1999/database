@@ -5,22 +5,89 @@
 
 <mapper namespace="com.hanxiao.mapper.AccountMapper">
     <select id="selectAccountById" resultType="com.hanxiao.bean.Account">
-        select * from Account where id = #{xxx};
+        select *
+        from Account
+        where id = #{xxx};
     </select>
 
     <insert id="insertAccount">
-        insert into account values (#{acc.id}, #{acc.name}, #{acc.money});
+        insert into account
+        values (#{acc.id}, #{acc.name}, #{acc.money});
     </insert>
 
     <delete id="deleteAccountById">
-        delete from account where id=#{id};
+        delete
+        from account
+        where id = #{id};
     </delete>
 
     <update id="updateAccountByName">
-        update account set money=1000 where name=#{name};
+        update account
+        set money=1000
+        where name = #{name};
     </update>
-    
+
     <update id="updateNameById">
-        update account set name= #{username} where id= #{uid};
+        update account
+        set name= #{username}
+        where id = #{uid};
     </update>
+
+    <select id="selectAccountListByMap" resultType="com.hanxiao.bean.Account">
+        select *
+        from account
+        where id &gt; #{id}
+          and money &gt; #{money};
+    </select>
+
+    <select id="selectAccountListByMapWithParam" resultType="com.hanxiao.bean.Account">
+        select *
+        from account
+        where id &gt; #{map.id}
+          and money &gt; #{map.money};
+    </select>
+
+    <select id="selectAccountListByIdOrMoney" resultType="com.hanxiao.bean.Account">
+        select *
+        from account
+        where id = #{param1}
+           or name = #{param2}
+           or money = #{param3};
+    </select>
+
+    <select id="selectAccountListOrderByColumn" resultType="com.hanxiao.bean.Account">
+        select *
+        from account
+        order by ${columnName} desc;
+    </select>
+
+    <select id="selectAccountTotalCounts" resultType="java.lang.Integer">
+        select count(*)
+        from account;
+    </select>
+
+    <select id="selectNameList" resultType="java.lang.String">
+        select name
+        from account;
+    </select>
+
+    <select id="selectNameArr" resultType="java.lang.String">
+        select name
+        from account;
+    </select>
+
+    <select id="selectAccountList" resultType="com.hanxiao.bean.Account">
+        select *
+        from account;
+    </select>
+
+    <resultMap id="bccountmap" type="com.hanxiao.bean.Bccount">
+        <id column="id" property="uid"/>
+        <result column="name" property="username"/>
+        <result column="money" property="balance"/>
+    </resultMap>
+
+    <select id="selectBccountById" resultMap="bccountmap">
+        select id, name, money from account where id=#{id};
+    </select>
 </mapper>
