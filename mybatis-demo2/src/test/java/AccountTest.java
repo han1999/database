@@ -100,6 +100,21 @@ public class AccountTest {
         Bccount bccount = accountMapper.selectBccountById(1);
         System.out.println("bccount = " + bccount);
     }
+
+    @Test
+    public void testSelectAccountListSelectively() {
+        Account account = new Account();
+//        account.setMoney(200);
+        account.setId(2);
+        List<Account> accounts = accountMapper.selectAccountListSelectively(account);
+        System.out.println("accounts = " + accounts);
+    }
+
+    @Test
+    public void testSelectAccountListByMoney() {
+        List<Account> accounts = accountMapper.selectAccountListByMoney(800);
+        System.out.println("accounts = " + accounts);
+    }
     @AfterClass
     public static void close() {
         sqlSession.close();

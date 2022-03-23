@@ -41,4 +41,8 @@ public interface AccountMapper {
     List<Account> selectAccountList();
 
     Bccount selectBccountById(@Param("id") Integer id);
+
+    List<Account> selectAccountListSelectively(@Param("account") Account account);
+
+    List<Account> selectAccountListByMoney(@Param("money") Integer money);
 }

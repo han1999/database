@@ -90,4 +90,36 @@
     <select id="selectBccountById" resultMap="bccountmap">
         select id, name, money from account where id=#{id};
     </select>
+
+    <select id="selectAccountListSelectively" resultType="com.hanxiao.bean.Account">
+        select * from account
+        <where>
+            <if test="account.id != null">
+                and id=#{account.id}
+            </if>
+            <if test="account.name!=null">
+                and name=#{account.name}
+            </if>
+            <if test="account.money!=null">
+                and money=#{account.money}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAccountListByMoney" resultType="com.hanxiao.bean.Account">
+        select * from account
+        <where>
+            <choose>
+                <when test="money lt 200">
+                    money &lt; 200
+                </when>
+                <when test="money gte 200 and money lte 500">
+                    or money between 200 and 500
+                </when>
+                <otherwise>
+                   or money &gt; 500
+                </otherwise>
+            </choose>
+        </where>
+    </select>
 </mapper>
