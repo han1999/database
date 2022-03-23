@@ -8,6 +8,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,6 +31,11 @@ public class AccountTest {
     @After
     public void after() {
         sqlSession.commit();
+    }
+
+    @AfterClass
+    public static void close() {
+        sqlSession.close();
     }
 
     @Test
@@ -109,14 +115,41 @@ public class AccountTest {
         List<Account> accounts = accountMapper.selectAccountListSelectively(account);
         System.out.println("accounts = " + accounts);
     }
-
     @Test
     public void testSelectAccountListByMoney() {
         List<Account> accounts = accountMapper.selectAccountListByMoney(800);
         System.out.println("accounts = " + accounts);
     }
-    @AfterClass
-    public static void close() {
-        sqlSession.close();
+
+    @Test
+    public void testUpdateAccountSelectiveById() {
+        Account account = new Account();
+        account.setId(2);
+        account.setMoney(0);
+        Integer affectedRows = accountMapper.updateAccountSelectiveById(account);
+        System.out.println("affectedRows = " + affectedRows);
+    }
+
+    @Test
+    public void testSelectAccountByIdWithInclude() {
+        Account account = accountMapper.selectAccountByIdWithInclude(2);
+        System.out.println("account = " + account);
+    }
+
+    @Test
+    public void testSelectAccountListByIdLst() {
+        ArrayList<Integer> ids = new ArrayList<>();
+        ids.add(1);
+        ids.add(2);
+        ids.add(7);
+        List<Account> accounts = accountMapper.selectAccountListByIdLst(ids);
+        System.out.println("accounts = " + accounts);
+    }
+
+    @Test
+    public void testSelectAccountListByIdArray() {
+        Integer[] ids={1,3,6};
+        List<Account> accounts = accountMapper.selectAccountListByIdArray(ids);
+        System.out.println("accounts = " + accounts);
     }
 }

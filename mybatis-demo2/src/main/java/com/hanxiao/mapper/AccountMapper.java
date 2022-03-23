@@ -2,7 +2,6 @@ package com.hanxiao.mapper;
 
 import com.hanxiao.bean.Account;
 import com.hanxiao.bean.Bccount;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -45,4 +44,12 @@ public interface AccountMapper {
     List<Account> selectAccountListSelectively(@Param("account") Account account);
 
     List<Account> selectAccountListByMoney(@Param("money") Integer money);
+
+    Integer updateAccountSelectiveById(@Param("account") Account account);
+
+    Account selectAccountByIdWithInclude(@Param("id") Integer id);
+
+    List<Account> selectAccountListByIdLst(@Param("ids") List<Integer> ids);
+
+    List<Account> selectAccountListByIdArray(@Param("ids") Integer[] ids);
 }
