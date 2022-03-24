@@ -73,7 +73,7 @@ public class AccountTest {
 
     @Test
     public void testSelectAccountListByMap() {
-        HashMap<String, Object> hashMap = new HashMap<>();
+        HashMap<String, Object> hashMap = new HashMap<String, Object>();
         hashMap.put("id", 1);
         hashMap.put("money", 100);
         List<Account> accounts = accountMapper.selectAccountListByMap(hashMap);
@@ -115,6 +115,7 @@ public class AccountTest {
         List<Account> accounts = accountMapper.selectAccountListSelectively(account);
         System.out.println("accounts = " + accounts);
     }
+
     @Test
     public void testSelectAccountListByMoney() {
         List<Account> accounts = accountMapper.selectAccountListByMoney(800);
@@ -148,8 +149,60 @@ public class AccountTest {
 
     @Test
     public void testSelectAccountListByIdArray() {
-        Integer[] ids={1,3,6};
+        Integer[] ids = {1, 3, 6};
         List<Account> accounts = accountMapper.selectAccountListByIdArray(ids);
         System.out.println("accounts = " + accounts);
+    }
+
+    @Test
+    public void testInsertAccountList() {
+        Account account1 = new Account();
+        account1.setName("wananshi");
+        account1.setMoney(1000);
+
+        Account account2 = new Account();
+        account2.setName("fanzhongyan");
+        account2.setMoney(2000);
+
+        List<Account> accounts = new ArrayList<>();
+        accounts.add(account1);
+        accounts.add(account2);
+
+        Integer affectedRows = accountMapper.insertAccountList(accounts);
+        System.out.println("affectedRows = " + affectedRows);
+    }
+
+    @Test
+    public void testInsertAccountArr() {
+        Account account1 = new Account();
+        account1.setName("xinqiji");
+        account1.setMoney(1000);
+
+        Account account2 = new Account();
+        account2.setName("huoqubing");
+        account2.setMoney(2000);
+        Account[] accountArr = {account1, account2};
+        Integer affectedRows = accountMapper.insertAccountArr(accountArr);
+        System.out.println("affectedRows = " + affectedRows);
+    }
+
+    @Test
+    public void testInsertAccountWithSelectKey() {
+        Account account = new Account();
+        account.setMoney(2000);
+        account.setName("mengtian");
+        Integer affectedRows = accountMapper.insertAccountWithSelectKey(account);
+        System.out.println("affectedRows = " + affectedRows);
+        System.out.println("account = " + account);
+    }
+
+    @Test
+    public void testInsertAccountUseGenerateKey() {
+        Account account = new Account();
+        account.setName("liuhuaqiang");
+        account.setMoney(2000);
+        Integer affectedRows = accountMapper.insertAccountUseGenerateKey(account);
+        System.out.println("affectedRows = " + affectedRows);
+        System.out.println("account = " + account);
     }
 }

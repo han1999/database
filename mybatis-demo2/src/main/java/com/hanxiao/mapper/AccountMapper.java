@@ -52,4 +52,12 @@ public interface AccountMapper {
     List<Account> selectAccountListByIdLst(@Param("ids") List<Integer> ids);
 
     List<Account> selectAccountListByIdArray(@Param("ids") Integer[] ids);
+
+    Integer insertAccountList(@Param("accountList") List<Account> accountList);
+
+    Integer insertAccountArr(@Param("accountArr") Account[] accountArr);
+
+    Integer insertAccountWithSelectKey(@Param("account") Account account);
+
+    Integer insertAccountUseGenerateKey(@Param("account") Account account);
 }

@@ -1,17 +1,11 @@
-import com.hanxiao.bean.Account;
 import com.hanxiao.bean.Order;
-import com.hanxiao.mapper.AccountMapper;
 import com.hanxiao.mapper.OrderMapper;
 import com.hanxiao.utils.MybatisUtils;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * @description:
@@ -39,6 +33,7 @@ public class OrderTest {
         Order order_1 = orderMapper.selectOrderByTableNameAndId("order_1", 1);
         System.out.println("order_1 = " + order_1);
     }
+
     @AfterClass
     public static void close() {
         sqlSession.close();
