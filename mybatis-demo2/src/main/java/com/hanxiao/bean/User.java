@@ -13,6 +13,8 @@ public class User {
     private String gender;
     private Integer age;
 
+    private UserDetail detail;
+
     @Override
     public String toString() {
         return "User{" +
@@ -21,6 +23,7 @@ public class User {
                 ", nickname='" + nickname + '\'' +
                 ", gender='" + gender + '\'' +
                 ", age=" + age +
+                ", detail=" + detail +
                 '}';
     }
 
@@ -62,6 +65,14 @@ public class User {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public UserDetail getDetail() {
+        return detail;
+    }
+
+    public void setDetail(UserDetail detail) {
+        this.detail = detail;
     }
 
     public User() {
