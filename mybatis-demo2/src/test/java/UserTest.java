@@ -36,7 +36,7 @@ public class UserTest {
     @Test
     public void testSelectUserWithUserDetailByUsernameUseCounts() {
         User user = userMapper.selectUserWithUserDetailByUsernameUseCounts("change");
-        System.out.println("user = " + user);
+//        System.out.println("user = " + user);
     }
 
     @Test
