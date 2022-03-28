@@ -5,6 +5,8 @@
 
 <mapper namespace="com.hanxiao.mapper.OrderMapper">
     <select id="selectOrderByTableNameAndId" resultType="com.hanxiao.bean.Order">
-        select * from ${tableName} where id=#{id};
+        select *
+        from ${tableName}
+        where id = #{id};
     </select>
 </mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hanxiao.mapper.UserMapper">
+    <resultMap id="userMap" type="com.hanxiao.bean.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <result column="age" property="age"/>
+
+        <association property="detail" javaType="com.hanxiao.bean.UserDetail"
+                     select="com.hanxiao.mapper.UserMapper.selectUserDetailByUserId"
+                     column="id"/>
+    </resultMap>
+    <select id="selectUserWithUserDetailByUsernameUseCounts" resultMap="userMap">
+        select id, username, nickname, gender, age
+        from user
+        where username = #{username}
+    </select>
+    <resultMap id="UserDetailMap" type="com.hanxiao.bean.UserDetail">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="height" property="height"/>
+        <result column="weight" property="weight"/>
+        <result column="pic" property="pic"/>
+    </resultMap>
+    <select id="selectUserDetailByUserId" resultMap="UserDetailMap">
+        select id, user_id, height, weight, pic
+        from user_detail
+        where user_id = #{id}
+    </select>
+
+    <resultMap id="userCrossMap" type="com.hanxiao.bean.User">
+        <id column="uid" property="id"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <result column="gender" property="gender"/>
+        <result column="age" property="age"/>
+
+        <association property="detail" javaType="com.hanxiao.bean.UserDetail">
+            <id column="did" property="id"/>
+            <result column="userId" property="userId"/>
+            <result column="height" property="height"/>
+            <result column="weight" property="weight"/>
+            <result column="pic" property="pic"/>
+        </association>
+    </resultMap>
+    <select id="selectUserWithUserDetailByUsernameUseCrossQuery" resultMap="userCrossMap">
+        SELECT u.id       AS uid,
+               u.username AS username,
+               u.nickname AS nickname,
+               u.gender   AS gender,
+               u.age      as age,
+               d.id       AS did,
+               d.user_id  AS userId,
+               d.height   AS height,
+               d.weight   AS weight,
+               d.pic      AS pic
+        FROM USER AS u
+                     LEFT OUTER JOIN user_detail AS d ON u.id = d.user_id
+        WHERE u.username = #{username};
+    </select>
+</mapper>

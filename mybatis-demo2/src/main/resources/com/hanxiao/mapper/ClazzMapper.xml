@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hanxiao.mapper.ClazzMapper">
+    <resultMap id="clazzMap" type="com.hanxiao.bean.Clazz">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+
+        <collection property="studentList" ofType="com.hanxiao.bean.Student"
+                    select="com.hanxiao.mapper.ClazzMapper.selectStudentListByClazzId"
+                    column="id"/>
+    </resultMap>
+    <select id="selectClassWithStudentByIdUseCounts" resultMap="clazzMap">
+        select id, name
+        from clazz
+        where id = #{id}
+    </select>
+    <select id="selectStudentListByClazzId" resultType="com.hanxiao.bean.Student">
+        select id, name, age, gender, clazz_id as clazzId
+        from student
+        where clazz_id = #{id}
+    </select>
+
+    <resultMap id="clazzCrossMap" type="com.hanxiao.bean.Clazz">
+        <id column="cid" property="id"/>
+        <result column="cname" property="name"/>
+
+        <collection property="studentList" ofType="com.hanxiao.bean.Student">
+            <id column="sid" property="id"/>
+            <result column="sname" property="name"/>
+            <result column="age" property="age"/>
+            <result column="gender" property="gender"/>
+            <result column="clazzId" property="clazzId"/>
+        </collection>
+    </resultMap>
+    <select id="selectClassWithStudentByIdUseCrossQuery" resultMap="clazzCrossMap">
+        SELECT
+                c.id AS cid,
+                c.NAME AS cname,
+                s.id AS sid,
+                s.NAME AS sname,
+                s.age AS age,
+                s.gender AS gender,
+                s.clazz_id AS clazzId
+        FROM
+                clazz AS c
+                        LEFT OUTER JOIN student AS s ON c.id = s.clazz_id
+        WHERE
+                c.id = #{id};
+    </select>
+</mapper>

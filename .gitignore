@@ -24,3 +24,6 @@ hs_err_pid*
 
 # workspace for Idea (It is constantly being revised.)
 **/.idea/workspace.xml
+
+# target
+**/target/
