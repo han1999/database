@@ -1,5 +1,7 @@
 package com.hanxiao.bean;
 
+import java.util.List;
+
 /**
  * @description:
  * @author: Han Xiao
@@ -13,6 +15,8 @@ public class Student {
     private String gender;
     private Integer clazzId;
 
+    private  List<Course> courseList;
+
     @Override
     public String toString() {
         return "Student{" +
@@ -21,6 +25,7 @@ public class Student {
                 ", age=" + age +
                 ", gender='" + gender + '\'' +
                 ", clazzId=" + clazzId +
+                ", courseList=" + courseList +
                 '}';
     }
 
@@ -62,6 +67,14 @@ public class Student {
 
     public void setClazzId(Integer clazzId) {
         this.clazzId = clazzId;
+    }
+
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(List<Course> courseList) {
+        this.courseList = courseList;
     }
 
     public Student() {

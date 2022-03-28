@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hanxiao.mapper.StudentMapper">
+    <resultMap id="studentMap" type="com.hanxiao.bean.Student">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="age" property="age"/>
+        <result column="gender" property="gender"/>
+        <result column="clazz_id" property="clazzId"/>
+
+        <collection property="courseList" ofType="com.hanxiao.bean.Course"
+                    select="com.hanxiao.mapper.StudentMapper.selectCourseListByStudentId"
+                    column="id"/>
+    </resultMap>
+    <select id="selectCourseListByStudentId" resultType="com.hanxiao.bean.Course">
+        select c.id, c.name, c.teacher, c.score
+        from s_c as sc
+                     left outer join course as c on sc.cid = c.id
+        where sc.sid = #{id}
+    </select>
+    <select id="selectStudentWithCourseList" resultMap="studentMap">
+        select id, name, age, gender, clazz_id
+        from student
+        where id = #{studentId}
+    </select>
+
+    <resultMap id="studentCrossMap" type="com.hanxiao.bean.Student">
+        <id column="sid" property="id"/>
+        <result column="sname" property="name"/>
+        <result column="age" property="age"/>
+        <result column="gender" property="gender"/>
+        <result column="clazzId" property="clazzId"/>
+        <collection property="courseList" ofType="com.hanxiao.bean.Course">
+            <id column="cid" property="id"/>
+            <result column="cname" property="name"/>
+            <result column="teacher" property="teacher"/>
+            <result column="score" property="score"/>
+        </collection>
+    </resultMap>
+    <select id="selectStudentWithCourseListUseCrossQuery" resultMap="studentCrossMap">
+
+        SELECT
+                c.id as cid,
+                c.name as cname,
+                c.teacher as teacher,
+                c.score as score,
+                s.id as sid,
+                s.name as sname,
+                s.age as age,
+                s.gender as gender,
+                s.clazz_id as clazzId
+        FROM
+                s_c AS sc
+                        LEFT OUTER JOIN course AS c ON c.id = sc.cid
+                        LEFT OUTER JOIN student AS s ON s.id = sc.sid
+        WHERE
+                sc.sid = #{studentId};
+    </select>
+</mapper>

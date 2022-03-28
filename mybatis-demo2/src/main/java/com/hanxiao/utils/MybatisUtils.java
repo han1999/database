@@ -21,6 +21,7 @@ public class MybatisUtils {
         InputStream resourceAsStream = null;
         try {
             resourceAsStream = Resources.getResourceAsStream("mybatis-config.xml");
+//            resourceAsStream = Resources.getResourceAsStream("C:\\Users\\hx\\IdeaProjects\\database\\mybatis-demo2\\src\\main\\resources\\mybatis-config.xml");
         } catch (IOException e) {
             e.printStackTrace();
         }
