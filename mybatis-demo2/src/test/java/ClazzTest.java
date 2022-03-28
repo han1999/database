@@ -36,7 +36,7 @@ public class ClazzTest {
     @Test
     public void testSelectClassWithStudentByIdUseCounts() {
         Clazz clazz = clazzMapper.selectClassWithStudentByIdUseCounts(1);
-        System.out.println("clazz = " + clazz);
+//        System.out.println("clazz = " + clazz);
     }
 
     @Test

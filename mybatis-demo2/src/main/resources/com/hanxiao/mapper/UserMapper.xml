@@ -12,7 +12,8 @@
 
         <association property="detail" javaType="com.hanxiao.bean.UserDetail"
                      select="com.hanxiao.mapper.UserMapper.selectUserDetailByUserId"
-                     column="id"/>
+                     column="id"
+                     fetchType="eager"/>
     </resultMap>
     <select id="selectUserWithUserDetailByUsernameUseCounts" resultMap="userMap">
         select id, username, nickname, gender, age
